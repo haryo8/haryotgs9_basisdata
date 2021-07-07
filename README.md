@@ -20,4 +20,9 @@ Koneksi Database Mysql Ke PHP Judul "Sistem penjualan online" ada 7 tabel
 <img width="1440" alt="Screen Shot 2021-07-04 at 22 58 55" src="https://user-images.githubusercontent.com/77155869/124791911-b58d3f80-df76-11eb-9207-c34612a6ddd2.png">
 <img width="1133" alt="Screen Shot 2021-07-04 at 22 59 06" src="https://user-images.githubusercontent.com/77155869/124791923-b7570300-df76-11eb-9bd2-cff3455b9b8c.png">
 <img width="392" alt="Screen Shot 2021-07-04 at 23 15 33" src="https://user-images.githubusercontent.com/77155869/124791934-bc1bb700-df76-11eb-9ca2-96e4b9eb0b1f.png">
+<br>
+<h1> isi data table kategori </h1>
+<img width="1305" alt="Screen Shot 2021-07-07 at 23 18 15" src="https://user-images.githubusercontent.com/77155869/124795333-1cf8be80-df7a-11eb-9d66-80c47260ab2e.png">
+<h2> menampilkan hasil isi data </h2> 
+<img width="1116" alt="Screen Shot 2021-07-07 at 23 22 13" src="https://user-images.githubusercontent.com/77155869/124795530-54676b00-df7a-11eb-9e47-2cad670419b4.png">
 
