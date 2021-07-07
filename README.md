@@ -1,6 +1,6 @@
 # haryo seto muhamad 
 nim 311910572
-Koneksi Database Mysql Ke PHP Judul "Sistem penjualan online" ada 7 tabel
+Koneksi Database Mysql Ke PHP Judul "e-comerce" ada 7 tabel
 
 <ul>
   <li>1.tabel login</li>
