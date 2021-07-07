@@ -26,3 +26,7 @@ Koneksi Database Mysql Ke PHP Judul "e-comerce" ada 7 tabel
 <h2> menampilkan hasil isi data </h2> 
 <img width="1116" alt="Screen Shot 2021-07-07 at 23 22 13" src="https://user-images.githubusercontent.com/77155869/124795530-54676b00-df7a-11eb-9e47-2cad670419b4.png">
 
+<h1 style {color: salmon;}> meengupdate data tugas 9  </h1>
+<img width="1166" alt="Screen Shot 2021-07-07 at 23 52 07" src="https://user-images.githubusercontent.com/77155869/124799803-2173a600-df7f-11eb-9b14-c5c6a7ddd95c.png">
+<img width="1143" alt="Screen Shot 2021-07-07 at 23 52 18" src="https://user-images.githubusercontent.com/77155869/124799810-259fc380-df7f-11eb-80e0-b76506408f81.png">
+
