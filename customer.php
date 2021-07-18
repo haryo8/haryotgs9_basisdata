@@ -1,25 +1,7 @@
-
 <?php 
 	session_start();
 	include '../dbconnect.php';
-		
-	if(isset($_POST['addcategory']))
-	{
-		$namakategori = $_POST['namakategori'];
-			  
-		$tambahkat = mysqli_query($conn,"insert into kategori (namakategori) values ('$namakategori')");
-		if ($tambahkat){
-		echo "
-		<meta http-equiv='refresh' content='1; url= kategori.php'/>  ";
-		} else { echo "
-		 <meta http-equiv='refresh' content='1; url= kategori.php'/> ";
-		}
-		
-	};
 	?>
-
-<!doctype html>
-<html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -27,7 +9,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Kategori - Tokopekita</title>
+    <title>Kelola Pelanggan - Tokopekita</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -78,16 +60,16 @@
 							<li>
                                 <a href="manageorder.php"><i class="ti-dashboard"></i><span>Kelola Pesanan</span></a>
                             </li>
-							<li class="active">
+							<li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
-                                    <li class="active"><a href="kategori.php">Kategori</a></li>
+                                    <li><a href="kategori.php">Kategori</a></li>
                                     <li><a href="produk.php">Produk</a></li>
 									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
                             </li>
-							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
+							<li class="active"><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
 							<li><a href="user.php"><span>Kelola Staff</span></a></li>
                             <li>
                                 <a href="../logout.php"><span>Logout</span></a>
@@ -137,8 +119,9 @@
                     </div>
                 </div>
             </div>
-            
-            
+            <!-- header area end -->
+			
+			
             <!-- page title area end -->
             <div class="main-content-inner">
                
@@ -148,52 +131,41 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Kategori</h2>
-									<button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Kategori</button>
-                                </div>
+									<h2>Daftar Pelanggan</h2>
+								</div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
-												<th>No.</th>
-												<th>Nama Kategori</th>
-												<th>Jumlah Produk</th>
-												<th>Tanggal Dibuat</th>
+												<th>No</th>
+												<th>Nama Pelanggan</th>
+												<th>No. Telepon</th>
+												<th>Alamat</th>
+												<th>Email</th>
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
+											$brgs=mysqli_query($conn,"SELECT * from login where role='Member' order by userid ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
-												$id = $p['idkategori'];
-
 												?>
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><?php echo $p['namakategori'] ?></td>
-													<td><?php 
-												
-														$result1 = mysqli_query($conn,"SELECT Count(idproduk) AS count FROM produk p, kategori k where p.idkategori=k.idkategori and k.idkategori='$id' order by idproduk ASC");
-														$cekrow = mysqli_num_rows($result1);
-														$row1 = mysqli_fetch_assoc($result1);
-														$count = $row1['count'];
-														if($cekrow > 0){
-														echo number_format($count);
-														} else {
-															echo 'No data';
-														}
-													?></td>
-													<td><?php echo $p['tgldibuat'] ?></td>
+													<td><?php echo $p['namalengkap'] ?></td>
+													<td><?php echo $p['notelp'] ?></td>
+													<td><?php echo $p['alamat'] ?></td>
+													<td><?php echo $p['email'] ?></td>
 													
-												</tr>		
+												</tr>	
 												
 												<?php 
 											}
 											
 											?>
+											
 										</tbody>
 										</table>
                                     </div>
-								 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -214,31 +186,9 @@
     </div>
     <!-- page container area end -->
 	
-	<!-- modal input -->
-			<div id="myModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Tambah Kategori</h4>
-						</div>
-						<div class="modal-body">
-							<form method="post">
-								<div class="form-group">
-									<label>Nama Kategori</label>
-									<input name="namakategori" type="text" class="form-control" required autofocus>
-								</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="addcategory" type="submit" class="btn btn-primary" value="Tambah">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
 	
 	<script>
+	
 	$(document).ready(function() {
     $('#dataTable3').DataTable( {
         dom: 'Bfrtip',
@@ -285,5 +235,7 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
 	
+	
 </body>
+
 </html>

@@ -3,16 +3,19 @@
 	session_start();
 	include '../dbconnect.php';
 		
-	if(isset($_POST['addcategory']))
+	if(isset($_POST['addmethod']))
 	{
-		$namakategori = $_POST['namakategori'];
+		$metode = $_POST['metode'];
+		$norek = $_POST['norek'];
+		$an = $_POST['an'];
+		$logo = $_POST['logo'];
 			  
-		$tambahkat = mysqli_query($conn,"insert into kategori (namakategori) values ('$namakategori')");
-		if ($tambahkat){
+		$tambahmet = mysqli_query($conn,"insert into pembayaran (metode,norek,an,logo) values ('$metode','$norek','$an','$logo')");
+		if ($tambahmet){
 		echo "
-		<meta http-equiv='refresh' content='1; url= kategori.php'/>  ";
+		<meta http-equiv='refresh' content='1; url= pembayaran.php'/>  ";
 		} else { echo "
-		 <meta http-equiv='refresh' content='1; url= kategori.php'/> ";
+		 <meta http-equiv='refresh' content='1; url= pembayaran.php'/> ";
 		}
 		
 	};
@@ -27,7 +30,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Kategori - Tokopekita</title>
+    <title>Kelola Metode Pembayaran - Tokopekita</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -82,9 +85,9 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout"></i><span>Kelola Toko
                                     </span></a>
                                 <ul class="collapse">
-                                    <li class="active"><a href="kategori.php">Kategori</a></li>
+                                    <li><a href="kategori.php">Kategori</a></li>
                                     <li><a href="produk.php">Produk</a></li>
-									<li><a href="pembayaran.php">Metode Pembayaran</a></li>
+									<li class="active"><a href="pembayaran.php">Metode Pembayaran</a></li>
                                 </ul>
                             </li>
 							<li><a href="customer.php"><span>Kelola Pelanggan</span></a></li>
@@ -148,41 +151,33 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Kategori</h2>
-									<button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Kategori</button>
+									<h2>Daftar Metode Pembayaran</h2>
+									<button style="margin-bottom:20px" data-toggle="modal" data-target="#myModal" class="btn btn-info col-md-2">Tambah Metode</button>
                                 </div>
                                     <div class="data-tables datatable-dark">
 										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
 											<tr>
 												<th>No.</th>
-												<th>Nama Kategori</th>
-												<th>Jumlah Produk</th>
-												<th>Tanggal Dibuat</th>
+												<th>Nama Metode</th>
+												<th>No.Rek</th>
+												<th>Atas Nama</th>
+												<th>URL Logo</th>
 											</tr></thead><tbody>
 											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
+											$brgs=mysqli_query($conn,"SELECT * from pembayaran order by no ASC");
 											$no=1;
 											while($p=mysqli_fetch_array($brgs)){
-												$id = $p['idkategori'];
+												$id = $p['no'];
 
 												?>
 												
 												<tr>
 													<td><?php echo $no++ ?></td>
-													<td><?php echo $p['namakategori'] ?></td>
-													<td><?php 
-												
-														$result1 = mysqli_query($conn,"SELECT Count(idproduk) AS count FROM produk p, kategori k where p.idkategori=k.idkategori and k.idkategori='$id' order by idproduk ASC");
-														$cekrow = mysqli_num_rows($result1);
-														$row1 = mysqli_fetch_assoc($result1);
-														$count = $row1['count'];
-														if($cekrow > 0){
-														echo number_format($count);
-														} else {
-															echo 'No data';
-														}
-													?></td>
-													<td><?php echo $p['tgldibuat'] ?></td>
+													<td><?php echo $p['metode'] ?></td>
+													<td><?php echo $p['norek'] ?></td>
+													<td><?php echo $p['an'] ?></td>
+													
+													<td><?php echo $p['logo'] ?></td>
 													
 												</tr>		
 												
@@ -219,19 +214,31 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Tambah Kategori</h4>
+							<h4 class="modal-title">Tambah Metode</h4>
 						</div>
 						<div class="modal-body">
 							<form method="post">
 								<div class="form-group">
-									<label>Nama Kategori</label>
-									<input name="namakategori" type="text" class="form-control" required autofocus>
+									<label>Nama Metode</label>
+									<input name="metode" type="text" class="form-control" required autofocus>
+								</div>
+								<div class="form-group">
+									<label>No. Rekening</label>
+									<input name="norek" type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>Atas Nama</label>
+									<input name="an" type="text" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label>URL Logo</label>
+									<input name="logo" type="text" class="form-control" required>
 								</div>
 
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="addcategory" type="submit" class="btn btn-primary" value="Tambah">
+								<input name="addmethod" type="submit" class="btn btn-primary" value="Tambah">
 							</div>
 						</form>
 					</div>
